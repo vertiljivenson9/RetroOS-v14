@@ -1,0 +1,2640 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>RetroOS v18.0 - Neural Gateway Professional</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+           SISTEMA OPERATIVO RETROS V18.0 - NEURAL GATEWAY
+           Código profesional con inteligencia artificial integrada
+           ============================================ */
+
+        /* ============================================
+           VARIABLES CSS Y CONFIGURACIÓN GLOBAL
+           ============================================ */
+        :root {
+            /* Colores principales */
+            --color-black: #010101;
+            --color-phosphor: #00ff41;
+            --color-phosphor-dark: #00cc33;
+            --color-god-red: #ff0000;
+            --color-god-red-dark: #cc0000;
+            --color-terminal: #010101;
+            --color-crt-amber: #ffb000;
+            
+            /* Tiempos de animación */
+            --time-boot: 3000ms;
+            --time-transition: 200ms;
+            --time-flicker: 150ms;
+            
+            /* Espaciado */
+            --spacing-xs: 4px;
+            --spacing-sm: 8px;
+            --spacing-md: 16px;
+            --spacing-lg: 24px;
+            --spacing-xl: 32px;
+            
+            /* Tamaños de fuente */
+            --font-xs: 10px;
+            --font-sm: 12px;
+            --font-md: 14px;
+            --font-lg: 16px;
+            --font-xl: 18px;
+            --font-2xl: 24px;
+            --font-3xl: 32px;
+        }
+
+        /* ============================================
+           RESET Y ESTILOS BASE
+           ============================================ */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            font-family: 'JetBrains Mono', monospace;
+            background-color: var(--color-black);
+            color: var(--color-phosphor);
+            overflow: hidden;
+            height: 100%;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            touch-action: none;
+            -webkit-touch-callout: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        input, textarea, button, select {
+            font-family: 'JetBrains Mono', monospace;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            border-radius: 0;
+            background: var(--color-black);
+            border: 2px solid var(--color-phosphor);
+            color: var(--color-phosphor);
+            padding: var(--spacing-sm) var(--spacing-md);
+            font-size: var(--font-sm);
+            outline: none;
+            transition: all var(--time-transition) ease;
+        }
+
+        input:focus, textarea:focus {
+            box-shadow: 0 0 10px var(--color-phosphor);
+            border-color: var(--color-phosphor);
+        }
+
+        button {
+            cursor: pointer;
+            touch-action: manipulation;
+            box-shadow: 2px 2px 0px var(--color-phosphor);
+            position: relative;
+        }
+
+        button:active {
+            box-shadow: 0px 0px 0px var(--color-phosphor);
+            transform: translate(2px, 2px);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* ============================================
+           EFECTOS CRT Y SCANLINES
+           ============================================ */
+        .crt-effect::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                rgba(18, 16, 16, 0) 50%,
+                rgba(0, 0, 0, 0.25) 50%
+            ), linear-gradient(
+                90deg,
+                rgba(255, 0, 0, 0.06),
+                rgba(0, 255, 0, 0.02),
+                rgba(0, 0, 255, 0.06)
+            );
+            z-index: 1000;
+            background-size: 100% 4px, 6px 100%;
+            pointer-events: none;
+            animation: crt-flicker var(--time-flicker) infinite;
+        }
+
+        .scanlines::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 255, 65, 0.03);
+            z-index: 1001;
+            pointer-events: none;
+            animation: scanline 8s linear infinite;
+        }
+
+        @keyframes crt-flicker {
+            0% { opacity: 0.27861; }
+            20% { opacity: 0.34769; }
+            40% { opacity: 0.23692; }
+            60% { opacity: 0.90626; }
+            80% { opacity: 0.18128; }
+            100% { opacity: 0.83891; }
+        }
+
+        @keyframes scanline {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100vh); }
+        }
+
+        /* ============================================
+           GOD MODE - TEMA ROJO
+           ============================================ */
+        .god-mode {
+            color: var(--color-god-red) !important;
+            text-shadow: 0 0 10px var(--color-god-red), 0 0 20px var(--color-god-red), 0 0 30px var(--color-god-red) !important;
+        }
+
+        .god-mode input,
+        .god-mode button,
+        .god-mode textarea,
+        .god-mode select {
+            border-color: var(--color-god-red);
+            color: var(--color-god-red);
+            box-shadow: 2px 2px 0px var(--color-god-red);
+        }
+
+        .god-mode button:active {
+            box-shadow: 0px 0px 0px var(--color-god-red);
+        }
+
+        .god-mode .crt-effect::before {
+            background: linear-gradient(
+                rgba(255, 0, 0, 0.1) 50%,
+                rgba(0, 0, 0, 0.25) 50%
+            ), linear-gradient(
+                90deg,
+                rgba(255, 0, 0, 0.1),
+                rgba(255, 100, 0, 0.05),
+                rgba(255, 0, 0, 0.1)
+            );
+        }
+
+        .god-mode .scanlines::after {
+            background: rgba(255, 0, 0, 0.03);
+        }
+
+        /* ============================================
+           BOOT SCREEN - PANTALLA DE ARRANQUE
+           ============================================ */
+        .boot-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--color-black);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+            transition: opacity 1s ease-out;
+        }
+
+        .boot-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .boot-logo {
+            width: 200px;
+            height: 200px;
+            background-image: url('./boot-image.jpg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin-bottom: var(--spacing-xl);
+            filter: brightness(0.8) contrast(1.2);
+            animation: boot-glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes boot-glow {
+            0% { 
+                filter: brightness(0.8) contrast(1.2);
+                transform: scale(1);
+            }
+            100% { 
+                filter: brightness(1.2) contrast(1.5);
+                transform: scale(1.05);
+            }
+        }
+
+        .boot-text {
+            font-size: var(--font-2xl);
+            font-weight: bold;
+            margin-bottom: var(--spacing-md);
+            text-align: center;
+            animation: text-flicker 2s ease-in-out infinite;
+        }
+
+        @keyframes text-flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .boot-subtitle {
+            font-size: var(--font-md);
+            opacity: 0.7;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .boot-progress {
+            width: 300px;
+            height: 4px;
+            background: rgba(0, 255, 65, 0.2);
+            border: 1px solid var(--color-phosphor);
+            margin-bottom: var(--spacing-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .boot-progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0%;
+            background: var(--color-phosphor);
+            animation: boot-progress 3s ease-out forwards;
+            box-shadow: 0 0 10px var(--color-phosphor);
+        }
+
+        @keyframes boot-progress {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        .boot-status {
+            font-size: var(--font-xs);
+            opacity: 0.5;
+        }
+
+        /* ============================================
+           DESKTOP - ESCRITORIO PRINCIPAL
+           ============================================ */
+        .desktop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--color-black);
+            background-image: url('./boot-image.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            filter: blur(2px) brightness(0.3);
+            z-index: 1;
+        }
+
+        .desktop::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                45deg,
+                transparent 49%,
+                rgba(0, 255, 65, 0.02) 50%,
+                transparent 51%
+            );
+            background-size: 3px 3px;
+            pointer-events: none;
+        }
+
+        /* ============================================
+           TASKBAR - BARRA DE TAREAS
+           ============================================ */
+        .taskbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: rgba(1, 1, 1, 0.95);
+            border-top: 2px solid var(--color-phosphor);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 var(--spacing-md);
+        }
+
+        .god-mode .taskbar {
+            border-top-color: var(--color-god-red);
+        }
+
+        .start-button {
+            width: 100px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-sm);
+            font-weight: bold;
+        }
+
+        .taskbar-center {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-sm);
+        }
+
+        .taskbar-item {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--color-phosphor);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-xs);
+            cursor: pointer;
+            transition: all var(--time-transition);
+        }
+
+        .taskbar-item:hover {
+            background: rgba(0, 255, 65, 0.1);
+        }
+
+        .god-mode .taskbar-item {
+            border-color: var(--color-god-red);
+        }
+
+        .god-mode .taskbar-item:hover {
+            background: rgba(255, 0, 0, 0.1);
+        }
+
+        .taskbar-right {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            font-size: var(--font-xs);
+        }
+
+        .system-tray {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--color-phosphor);
+            animation: pulse 2s infinite;
+        }
+
+        .god-mode .status-indicator {
+            background: var(--color-god-red);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* ============================================
+           START MENU - MENÚ INICIO
+           ============================================ */
+        .start-menu {
+            position: fixed;
+            bottom: 60px;
+            left: 0;
+            width: 300px;
+            height: 400px;
+            background: rgba(1, 1, 1, 0.95);
+            border: 2px solid var(--color-phosphor);
+            backdrop-filter: blur(10px);
+            z-index: 99;
+            transform: translateY(100%);
+            transition: transform var(--time-transition) ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .start-menu.open {
+            transform: translateY(0);
+        }
+
+        .god-mode .start-menu {
+            border-color: var(--color-god-red);
+        }
+
+        .start-menu-header {
+            padding: var(--spacing-md);
+            border-bottom: 1px solid var(--color-phosphor);
+            font-size: var(--font-lg);
+            font-weight: bold;
+        }
+
+        .god-mode .start-menu-header {
+            border-bottom-color: var(--color-god-red);
+        }
+
+        .start-menu-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: var(--spacing-sm);
+        }
+
+        .start-menu-item {
+            display: flex;
+            align-items: center;
+            padding: var(--spacing-sm) var(--spacing-md);
+            cursor: pointer;
+            transition: background var(--time-transition);
+            gap: var(--spacing-md);
+        }
+
+        .start-menu-item:hover {
+            background: rgba(0, 255, 65, 0.1);
+        }
+
+        .god-mode .start-menu-item:hover {
+            background: rgba(255, 0, 0, 0.1);
+        }
+
+        .start-menu-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-lg);
+        }
+
+        .start-menu-label {
+            font-size: var(--font-sm);
+        }
+
+        /* ============================================
+           WINDOW SYSTEM - SISTEMA DE VENTANAS
+           ============================================ */
+        .window {
+            position: absolute;
+            background: rgba(1, 1, 1, 0.95);
+            border: 2px solid var(--color-phosphor);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            min-width: 300px;
+            min-height: 200px;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+        }
+
+        .god-mode .window {
+            border-color: var(--color-god-red);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+        }
+
+        .window.hidden {
+            display: none;
+        }
+
+        .window.minimized {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .window-titlebar {
+            height: 32px;
+            background: rgba(0, 255, 65, 0.1);
+            border-bottom: 1px solid var(--color-phosphor);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 var(--spacing-sm);
+            cursor: move;
+            user-select: none;
+        }
+
+        .god-mode .window-titlebar {
+            background: rgba(255, 0, 0, 0.1);
+            border-bottom-color: var(--color-god-red);
+        }
+
+        .window-title {
+            font-size: var(--font-sm);
+            font-weight: bold;
+        }
+
+        .window-controls {
+            display: flex;
+            gap: var(--spacing-xs);
+        }
+
+        .window-control {
+            width: 16px;
+            height: 16px;
+            border: 1px solid var(--color-phosphor);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-xs);
+            cursor: pointer;
+            transition: background var(--time-transition);
+        }
+
+        .window-control:hover {
+            background: rgba(0, 255, 65, 0.2);
+        }
+
+        .god-mode .window-control {
+            border-color: var(--color-god-red);
+        }
+
+        .god-mode .window-control:hover {
+            background: rgba(255, 0, 0, 0.2);
+        }
+
+        .window-content {
+            flex: 1;
+            overflow: auto;
+            padding: var(--spacing-md);
+        }
+
+        .window-resize {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 16px;
+            height: 16px;
+            cursor: se-resize;
+            border-right: 2px solid var(--color-phosphor);
+            border-bottom: 2px solid var(--color-phosphor);
+        }
+
+        .god-mode .window-resize {
+            border-color: var(--color-god-red);
+        }
+
+        /* ============================================
+           APPLICATION STYLES - ESTILOS DE APLICACIONES
+           ============================================ */
+        
+        /* Terminal */
+        .terminal {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background: var(--color-black);
+        }
+
+        .terminal-output {
+            flex: 1;
+            overflow-y: auto;
+            padding: var(--spacing-md);
+            font-size: var(--font-sm);
+            line-height: 1.4;
+            white-space: pre-wrap;
+        }
+
+        .terminal-input-line {
+            display: flex;
+            align-items: center;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-top: 1px solid var(--color-phosphor);
+        }
+
+        .terminal-prompt {
+            color: var(--color-phosphor);
+            margin-right: var(--spacing-sm);
+            font-size: var(--font-sm);
+        }
+
+        .terminal-input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            color: var(--color-phosphor);
+            font-size: var(--font-sm);
+            outline: none;
+        }
+
+        .terminal-cursor {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* File Explorer */
+        .file-explorer {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background: var(--color-black);
+        }
+
+        .file-explorer-toolbar {
+            padding: var(--spacing-sm);
+            border-bottom: 1px solid var(--color-phosphor);
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+
+        .file-explorer-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: var(--spacing-sm);
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            padding: var(--spacing-sm);
+            cursor: pointer;
+            transition: background var(--time-transition);
+            gap: var(--spacing-sm);
+        }
+
+        .file-item:hover {
+            background: rgba(0, 255, 65, 0.1);
+        }
+
+        .god-mode .file-item:hover {
+            background: rgba(255, 0, 0, 0.1);
+        }
+
+        .file-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-lg);
+        }
+
+        .file-name {
+            font-size: var(--font-sm);
+        }
+
+        /* Neural Vision */
+        .neural-vision {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background: var(--color-black);
+            padding: var(--spacing-md);
+        }
+
+        .neural-vision-controls {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .neural-vision-input {
+            width: 100%;
+            height: 80px;
+            resize: none;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .neural-vision-button {
+            width: 100%;
+        }
+
+        .neural-vision-preview {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed var(--color-phosphor);
+            background: rgba(0, 255, 65, 0.05);
+        }
+
+        .neural-vision-image {
+            max-width: 100%;
+            max-height: 100%;
+            border: 2px solid var(--color-phosphor);
+        }
+
+        /* Settings */
+        .settings {
+            height: 100%;
+            background: var(--color-black);
+            padding: var(--spacing-md);
+            overflow-y: auto;
+        }
+
+        .settings-section {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .settings-title {
+            font-size: var(--font-lg);
+            font-weight: bold;
+            margin-bottom: var(--spacing-md);
+            color: var(--color-phosphor);
+        }
+
+        .settings-item {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .settings-label {
+            display: block;
+            font-size: var(--font-sm);
+            margin-bottom: var(--spacing-xs);
+            color: var(--color-phosphor);
+        }
+
+        .settings-input {
+            width: 100%;
+        }
+
+        .settings-info {
+            background: rgba(0, 255, 65, 0.1);
+            border: 1px solid var(--color-phosphor);
+            padding: var(--spacing-md);
+            font-size: var(--font-sm);
+            line-height: 1.6;
+        }
+
+        .god-mode .settings-info {
+            background: rgba(255, 0, 0, 0.1);
+            border-color: var(--color-god-red);
+        }
+
+        /* ============================================
+           UTILIDADES Y CLASES AUXILIARES
+           ============================================ */
+        .hidden { display: none !important; }
+        .invisible { visibility: hidden !important; }
+        .transparent { opacity: 0 !important; }
+
+        .text-center { text-align: center; }
+        .text-left { text-align: left; }
+        .text-right { text-align: right; }
+
+        .flex { display: flex; }
+        .flex-1 { flex: 1; }
+        .flex-col { flex-direction: column; }
+        .items-center { align-items: center; }
+        .justify-center { justify-content: center; }
+        .justify-between { justify-content: space-between; }
+
+        .p-1 { padding: var(--spacing-xs); }
+        .p-2 { padding: var(--spacing-sm); }
+        .p-3 { padding: var(--spacing-md); }
+        .p-4 { padding: var(--spacing-lg); }
+
+        .m-1 { margin: var(--spacing-xs); }
+        .m-2 { margin: var(--spacing-sm); }
+        .m-3 { margin: var(--spacing-md); }
+        .m-4 { margin: var(--spacing-lg); }
+
+        .mt-1 { margin-top: var(--spacing-xs); }
+        .mt-2 { margin-top: var(--spacing-sm); }
+        .mt-3 { margin-top: var(--spacing-md); }
+        .mt-4 { margin-top: var(--spacing-lg); }
+
+        .mb-1 { margin-bottom: var(--spacing-xs); }
+        .mb-2 { margin-bottom: var(--spacing-sm); }
+        .mb-3 { margin-bottom: var(--spacing-md); }
+        .mb-4 { margin-bottom: var(--spacing-lg); }
+
+        .ml-1 { margin-left: var(--spacing-xs); }
+        .ml-2 { margin-left: var(--spacing-sm); }
+        .ml-3 { margin-left: var(--spacing-md); }
+        .ml-4 { margin-left: var(--spacing-lg); }
+
+        .mr-1 { margin-right: var(--spacing-xs); }
+        .mr-2 { margin-right: var(--spacing-sm); }
+        .mr-3 { margin-right: var(--spacing-md); }
+        .mr-4 { margin-right: var(--spacing-lg); }
+
+        .w-full { width: 100%; }
+        .h-full { height: 100%; }
+
+        .text-xs { font-size: var(--font-xs); }
+        .text-sm { font-size: var(--font-sm); }
+        .text-md { font-size: var(--font-md); }
+        .text-lg { font-size: var(--font-lg); }
+        .text-xl { font-size: var(--font-xl); }
+
+        .font-bold { font-weight: bold; }
+
+        .border { border: 1px solid var(--color-phosphor); }
+        .border-2 { border: 2px solid var(--color-phosphor); }
+        .border-t { border-top: 1px solid var(--color-phosphor); }
+        .border-b { border-bottom: 1px solid var(--color-phosphor); }
+        .border-l { border-left: 1px solid var(--color-phosphor); }
+        .border-r { border-right: 1px solid var(--color-phosphor); }
+
+        .bg-black { background-color: var(--color-black); }
+        .bg-phosphor { background-color: var(--color-phosphor); }
+
+        .text-phosphor { color: var(--color-phosphor); }
+        .text-god-red { color: var(--color-god-red); }
+
+        .opacity-50 { opacity: 0.5; }
+        .opacity-70 { opacity: 0.7; }
+
+        .cursor-pointer { cursor: pointer; }
+        .cursor-move { cursor: move; }
+
+        .overflow-auto { overflow: auto; }
+        .overflow-hidden { overflow: hidden; }
+
+        .whitespace-pre-wrap { white-space: pre-wrap; }
+        .whitespace-nowrap { white-space: nowrap; }
+
+        .select-none { user-select: none; }
+
+        /* ============================================
+           RESPONSIVE Y MOBILE OPTIMIZATIONS
+           ============================================ */
+        @media (max-width: 768px) {
+            :root {
+                --font-xs: 9px;
+                --font-sm: 11px;
+                --font-md: 13px;
+                --font-lg: 15px;
+                --font-xl: 17px;
+            }
+
+            .window {
+                min-width: 280px;
+                min-height: 180px;
+            }
+
+            .taskbar {
+                height: 50px;
+            }
+
+            .start-menu {
+                width: 280px;
+                height: 350px;
+                bottom: 50px;
+            }
+        }
+
+        /* ============================================
+           ANIMACIONES ESPECIALES
+           ============================================ */
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        .glitch {
+            animation: glitch 0.3s infinite;
+        }
+
+        @keyframes glow {
+            0% { text-shadow: 0 0 5px currentColor; }
+            100% { text-shadow: 0 0 20px currentColor, 0 0 30px currentColor; }
+        }
+
+        .glow {
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes fade-in {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fade-in 0.5s ease-out;
+        }
+
+        @keyframes slide-up {
+            0% { transform: translateY(100%); }
+            100% { transform: translateY(0); }
+        }
+
+        .slide-up {
+            animation: slide-up 0.3s ease-out;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .rotate {
+            animation: rotate 1s linear infinite;
+        }
+
+        /* ============================================
+           SCROLLBAR CUSTOMIZADA
+           ============================================ */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--color-black);
+            border: 1px solid var(--color-phosphor);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--color-phosphor);
+            border: 1px solid var(--color-phosphor);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--color-phosphor-dark);
+        }
+
+        ::-webkit-scrollbar-corner {
+            background: var(--color-black);
+        }
+
+        /* ============================================
+           IMPRESIÓN Y MEDIOS
+           ============================================ */
+        @media print {
+            .crt-effect::before,
+            .scanlines::after,
+            .boot-screen {
+                display: none !important;
+            }
+        }
+
+        /* ============================================
+           PREFIERE COLOR SCHEME
+           ============================================ */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --color-black: #000000;
+                --color-phosphor: #00ff00;
+            }
+        }
+
+        /* ============================================
+           REDUCED MOTION
+           ============================================ */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body class="crt-effect scanlines">
+    <!-- ============================================
+         BOOT SCREEN - PANTALLA DE ARRANQUE
+         ============================================ -->
+    <div id="bootScreen" class="boot-screen">
+        <div class="boot-logo"></div>
+        <div class="boot-text">RETROS v18.0</div>
+        <div class="boot-subtitle">NEURAL GATEWAY PROFESSIONAL</div>
+        <div class="boot-progress"></div>
+        <div class="boot-status">Initializing system...</div>
+    </div>
+
+    <!-- ============================================
+         DESKTOP - ESCRITORIO PRINCIPAL
+         ============================================ -->
+    <div id="desktop" class="desktop"></div>
+
+    <!-- ============================================
+         TASKBAR - BARRA DE TAREAS
+         ============================================ -->
+    <div id="taskbar" class="taskbar">
+        <button id="startButton" class="start-button">START</button>
+        <div class="taskbar-center">
+            <div class="taskbar-item" data-app="terminal" title="Terminal">>_</div>
+            <div class="taskbar-item" data-app="files" title="Files">[]</div>
+            <div class="taskbar-item" data-app="vision" title="Vision">◈</div>
+            <div class="taskbar-item" data-app="settings" title="Settings">⚙</div>
+        </div>
+        <div class="taskbar-right">
+            <div class="system-tray">
+                <div class="status-indicator"></div>
+                <span id="clock">00:00:00</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         START MENU - MENÚ INICIO
+         ============================================ -->
+    <div id="startMenu" class="start-menu">
+        <div class="start-menu-header">SYSTEM</div>
+        <div class="start-menu-content">
+            <div class="start-menu-item" data-app="terminal">
+                <div class="start-menu-icon">>_</div>
+                <div class="start-menu-label">Terminal</div>
+            </div>
+            <div class="start-menu-item" data-app="files">
+                <div class="start-menu-icon">[]</div>
+                <div class="start-menu-label">File Explorer</div>
+            </div>
+            <div class="start-menu-item" data-app="vision">
+                <div class="start-menu-icon">◈</div>
+                <div class="start-menu-label">Neural Vision</div>
+            </div>
+            <div class="start-menu-item" data-app="settings">
+                <div class="start-menu-icon">⚙</div>
+                <div class="start-menu-label">Settings</div>
+            </div>
+            <div class="start-menu-item" data-action="toggle-theme">
+                <div class="start-menu-icon">◆</div>
+                <div class="start-menu-label">Toggle God Mode</div>
+            </div>
+            <div class="start-menu-item" data-action="shutdown">
+                <div class="start-menu-icon">⏻</div>
+                <div class="start-menu-label">Shutdown</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         WINDOWS - VENTANAS DE APLICACIONES
+         ============================================ -->
+    
+    <!-- Terminal Window -->
+    <div id="terminalWindow" class="window" style="top: 50px; left: 50px; width: 600px; height: 400px;">
+        <div class="window-titlebar">
+            <div class="window-title">Terminal</div>
+            <div class="window-controls">
+                <div class="window-control" data-action="minimize">_</div>
+                <div class="window-control" data-action="maximize">□</div>
+                <div class="window-control" data-action="close">×</div>
+            </div>
+        </div>
+        <div class="window-content">
+            <div class="terminal">
+                <div id="terminalOutput" class="terminal-output">Welcome to RetroOS v18.0 - Neural Gateway Professional
+Type 'help' for available commands.
+
+</div>
+                <div class="terminal-input-line">
+                    <span class="terminal-prompt">user@retroos:~$</span>
+                    <input id="terminalInput" type="text" class="terminal-input" autocomplete="off" spellcheck="false">
+                    <span class="terminal-cursor">█</span>
+                </div>
+            </div>
+        </div>
+        <div class="window-resize"></div>
+    </div>
+
+    <!-- File Explorer Window -->
+    <div id="fileExplorerWindow" class="window hidden" style="top: 80px; left: 100px; width: 500px; height: 400px;">
+        <div class="window-titlebar">
+            <div class="window-title">File Explorer</div>
+            <div class="window-controls">
+                <div class="window-control" data-action="minimize">_</div>
+                <div class="window-control" data-action="maximize">□</div>
+                <div class="window-control" data-action="close">×</div>
+            </div>
+        </div>
+        <div class="window-content">
+            <div class="file-explorer">
+                <div class="file-explorer-toolbar">
+                    <button id="refreshFiles" class="btn-brutal" style="padding: 4px 8px; font-size: 10px;">Refresh</button>
+                    <button id="newFolder" class="btn-brutal" style="padding: 4px 8px; font-size: 10px;">New Folder</button>
+                </div>
+                <div id="fileExplorerContent" class="file-explorer-content">
+                    <!-- Files will be populated here -->
+                </div>
+            </div>
+        </div>
+        <div class="window-resize"></div>
+    </div>
+
+    <!-- Neural Vision Window -->
+    <div id="neuralVisionWindow" class="window hidden" style="top: 110px; left: 150px; width: 500px; height: 400px;">
+        <div class="window-titlebar">
+            <div class="window-title">Neural Vision</div>
+            <div class="window-controls">
+                <div class="window-control" data-action="minimize">_</div>
+                <div class="window-control" data-action="maximize">□</div>
+                <div class="window-control" data-action="close">×</div>
+            </div>
+        </div>
+        <div class="window-content">
+            <div class="neural-vision">
+                <div class="neural-vision-controls">
+                    <textarea id="neuralVisionInput" class="neural-vision-input" placeholder="Describe the blueprint you want to generate..."></textarea>
+                    <button id="generateBlueprint" class="neural-vision-button">GENERATE BLUEPRINT</button>
+                </div>
+                <div class="neural-vision-preview">
+                    <div id="neuralVisionPreviewText" style="text-align: center; opacity: 0.5;">
+                        Enter a description to generate a blueprint
+                    </div>
+                    <img id="neuralVisionImage" class="neural-vision-image hidden" alt="Generated Blueprint">
+                </div>
+            </div>
+        </div>
+        <div class="window-resize"></div>
+    </div>
+
+    <!-- Settings Window -->
+    <div id="settingsWindow" class="window hidden" style="top: 140px; left: 200px; width: 400px; height: 300px;">
+        <div class="window-titlebar">
+            <div class="window-title">Settings</div>
+            <div class="window-controls">
+                <div class="window-control" data-action="minimize">_</div>
+                <div class="window-control" data-action="maximize">□</div>
+                <div class="window-control" data-action="close">×</div>
+            </div>
+        </div>
+        <div class="window-content">
+            <div class="settings">
+                <div class="settings-section">
+                    <div class="settings-title">System Information</div>
+                    <div class="settings-info">
+                        <div><strong>Version:</strong> 18.0.0 Professional</div>
+                        <div><strong>Build:</strong> 1800</div>
+                        <div><strong>Mode:</strong> <span id="systemMode">Normal</span></div>
+                        <div><strong>Neural Gateway:</strong> <span id="neuralStatus">Offline</span></div>
+                        <div><strong>Hardware Uplink:</strong> <span id="uplinkStatus">Unmounted</span></div>
+                    </div>
+                </div>
+                
+                <div class="settings-section">
+                    <div class="settings-title">Neural Gateway Configuration</div>
+                    <div class="settings-item">
+                        <label class="settings-label">Google Gemini API Key:</label>
+                        <input id="apiKeyInput" type="password" class="settings-input" placeholder="Enter your API key...">
+                        <button id="saveApiKey" class="btn-brutal" style="margin-top: 8px; width: 100%;">SAVE API KEY</button>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <div class="settings-title">System Actions</div>
+                    <div class="settings-item">
+                        <button id="mountUplink" class="btn-brutal" style="width: 100%;">MOUNT HARDWARE UPLINK</button>
+                    </div>
+                    <div class="settings-item">
+                        <button id="clearStorage" class="btn-brutal" style="width: 100%;">CLEAR LOCAL STORAGE</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="window-resize"></div>
+    </div>
+
+    <!-- ============================================
+         CONTEXT MENU - MENÚ CONTEXTUAL
+         ============================================ -->
+    <div id="contextMenu" class="hidden" style="
+        position: fixed;
+        background: rgba(1, 1, 1, 0.95);
+        border: 2px solid var(--color-phosphor);
+        backdrop-filter: blur(10px);
+        z-index: 1000;
+        min-width: 150px;
+        padding: 4px 0;
+    ">
+        <div class="start-menu-item" data-action="refresh">
+            <div class="start-menu-icon">↻</div>
+            <div class="start-menu-label">Refresh</div>
+        </div>
+        <div class="start-menu-item" data-action="properties">
+            <div class="start-menu-icon">ℹ</div>
+            <div class="start-menu-label">Properties</div>
+        </div>
+        <div class="start-menu-item" data-action="close">
+            <div class="start-menu-icon">×</div>
+            <div class="start-menu-label">Close</div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         JAVASCRIPT - SISTEMA OPERATIVO COMPLETO
+         ============================================ -->
+    <script>
+        // ============================================
+        // SISTEMA OPERATIVO RETROS V18.0 - JAVASCRIPT
+        // ============================================
+
+        class RetroOS {
+            constructor() {
+                this.isGodMode = false;
+                this.apiKey = localStorage.getItem('gemini_api_key') || '';
+                this.uplinkMounted = false;
+                this.windows = new Map();
+                this.activeWindow = null;
+                this.terminalHistory = [];
+                this.terminalHistoryIndex = -1;
+                this.fileSystem = this.initializeFileSystem();
+                this.neuralResponses = this.initializeNeuralResponses();
+                
+                this.init();
+            }
+
+            init() {
+                this.setupEventListeners();
+                this.startBootSequence();
+                this.updateClock();
+                this.loadSavedSettings();
+                
+                // Initialize window system
+                this.registerWindow('terminal', document.getElementById('terminalWindow'));
+                this.registerWindow('files', document.getElementById('fileExplorerWindow'));
+                this.registerWindow('vision', document.getElementById('neuralVisionWindow'));
+                this.registerWindow('settings', document.getElementById('settingsWindow'));
+                
+                // Show terminal by default
+                this.showWindow('terminal');
+            }
+
+            // ============================================
+            // BOOT SEQUENCE
+            // ============================================
+            startBootSequence() {
+                const bootScreen = document.getElementById('bootScreen');
+                const bootStatus = document.querySelector('.boot-status');
+                
+                const statusMessages = [
+                    'Initializing system...',
+                    'Loading kernel modules...',
+                    'Starting Neural Gateway...',
+                    'Mounting file systems...',
+                    'Initializing GUI...',
+                    'System ready.'
+                ];
+                
+                let messageIndex = 0;
+                const interval = setInterval(() => {
+                    if (messageIndex < statusMessages.length) {
+                        bootStatus.textContent = statusMessages[messageIndex];
+                        messageIndex++;
+                    } else {
+                        clearInterval(interval);
+                        setTimeout(() => {
+                            bootScreen.classList.add('hidden');
+                            setTimeout(() => {
+                                bootScreen.style.display = 'none';
+                            }, 1000);
+                        }, 500);
+                    }
+                }, 500);
+            }
+
+            // ============================================
+            // EVENT LISTENERS
+            // ============================================
+            setupEventListeners() {
+                // Taskbar events
+                document.getElementById('startButton').addEventListener('click', () => {
+                    this.toggleStartMenu();
+                });
+
+                document.querySelectorAll('.taskbar-item').forEach(item => {
+                    item.addEventListener('click', (e) => {
+                        const app = e.target.dataset.app;
+                        if (app) {
+                            this.showWindow(app);
+                        }
+                    });
+                });
+
+                // Start menu events
+                document.querySelectorAll('.start-menu-item').forEach(item => {
+                    item.addEventListener('click', (e) => {
+                        const action = e.currentTarget.dataset.action;
+                        const app = e.currentTarget.dataset.app;
+                        
+                        if (action) {
+                            this.handleStartMenuAction(action);
+                        } else if (app) {
+                            this.showWindow(app);
+                        }
+                        
+                        this.toggleStartMenu();
+                    });
+                });
+
+                // Window control events
+                document.querySelectorAll('.window-control').forEach(control => {
+                    control.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const action = e.target.dataset.action;
+                        const window = e.target.closest('.window');
+                        this.handleWindowControl(window, action);
+                    });
+                });
+
+                // Window dragging
+                document.querySelectorAll('.window-titlebar').forEach(titlebar => {
+                    this.makeDraggable(titlebar.parentElement, titlebar);
+                });
+
+                // Terminal input
+                const terminalInput = document.getElementById('terminalInput');
+                terminalInput.addEventListener('keydown', (e) => {
+                    this.handleTerminalKeyDown(e);
+                });
+
+                // File explorer events
+                document.getElementById('refreshFiles').addEventListener('click', () => {
+                    this.refreshFileExplorer();
+                });
+
+                document.getElementById('newFolder').addEventListener('click', () => {
+                    this.createNewFolder();
+                });
+
+                // Neural vision events
+                document.getElementById('generateBlueprint').addEventListener('click', () => {
+                    this.generateBlueprint();
+                });
+
+                document.getElementById('neuralVisionInput').addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' && e.ctrlKey) {
+                        this.generateBlueprint();
+                    }
+                });
+
+                // Settings events
+                document.getElementById('saveApiKey').addEventListener('click', () => {
+                    this.saveApiKey();
+                });
+
+                document.getElementById('mountUplink').addEventListener('click', () => {
+                    this.mountHardwareUplink();
+                });
+
+                document.getElementById('clearStorage').addEventListener('click', () => {
+                    this.clearLocalStorage();
+                });
+
+                // Context menu
+                document.addEventListener('contextmenu', (e) => {
+                    e.preventDefault();
+                    this.showContextMenu(e.clientX, e.clientY);
+                });
+
+                document.addEventListener('click', () => {
+                    this.hideContextMenu();
+                });
+
+                // Clock update
+                setInterval(() => {
+                    this.updateClock();
+                }, 1000);
+
+                // Keyboard shortcuts
+                document.addEventListener('keydown', (e) => {
+                    this.handleGlobalKeyDown(e);
+                });
+            }
+
+            // ============================================
+            // WINDOW MANAGEMENT
+            // ============================================
+            registerWindow(id, element) {
+                this.windows.set(id, {
+                    element,
+                    minimized: false,
+                    maximized: false,
+                    zIndex: 10
+                });
+            }
+
+            showWindow(id) {
+                const windowData = this.windows.get(id);
+                if (windowData) {
+                    windowData.element.classList.remove('hidden');
+                    windowData.element.classList.remove('minimized');
+                    this.bringToFront(windowData.element);
+                    this.activeWindow = id;
+                }
+            }
+
+            hideWindow(id) {
+                const windowData = this.windows.get(id);
+                if (windowData) {
+                    windowData.element.classList.add('hidden');
+                }
+            }
+
+            minimizeWindow(id) {
+                const windowData = this.windows.get(id);
+                if (windowData) {
+                    windowData.element.classList.add('minimized');
+                    windowData.minimized = true;
+                }
+            }
+
+            closeWindow(id) {
+                const windowData = this.windows.get(id);
+                if (windowData) {
+                    windowData.element.classList.add('hidden');
+                }
+            }
+
+            bringToFront(element) {
+                const maxZ = Math.max(...Array.from(this.windows.values()).map(w => w.zIndex));
+                element.style.zIndex = maxZ + 1;
+            }
+
+            handleWindowControl(window, action) {
+                const windowId = Array.from(this.windows.entries()).find(([id, data]) => data.element === window)?.[0];
+                
+                if (!windowId) return;
+
+                switch (action) {
+                    case 'minimize':
+                        this.minimizeWindow(windowId);
+                        break;
+                    case 'maximize':
+                        this.maximizeWindow(windowId);
+                        break;
+                    case 'close':
+                        this.closeWindow(windowId);
+                        break;
+                }
+            }
+
+            maximizeWindow(id) {
+                const windowData = this.windows.get(id);
+                if (windowData) {
+                    if (windowData.maximized) {
+                        windowData.element.style.top = '50px';
+                        windowData.element.style.left = '50px';
+                        windowData.element.style.width = '600px';
+                        windowData.element.style.height = '400px';
+                        windowData.maximized = false;
+                    } else {
+                        windowData.element.style.top = '0';
+                        windowData.element.style.left = '0';
+                        windowData.element.style.width = '100vw';
+                        windowData.element.style.height = 'calc(100vh - 60px)';
+                        windowData.maximized = true;
+                    }
+                }
+            }
+
+            makeDraggable(element, handle) {
+                let isDragging = false;
+                let startX, startY, initialX, initialY;
+
+                handle.addEventListener('mousedown', (e) => {
+                    if (e.target !== handle && !handle.contains(e.target)) return;
+                    
+                    isDragging = true;
+                    startX = e.clientX;
+                    startY = e.clientY;
+                    initialX = element.offsetLeft;
+                    initialY = element.offsetTop;
+                    
+                    this.bringToFront(element);
+                    element.style.cursor = 'grabbing';
+                });
+
+                document.addEventListener('mousemove', (e) => {
+                    if (!isDragging) return;
+                    
+                    e.preventDefault();
+                    const deltaX = e.clientX - startX;
+                    const deltaY = e.clientY - startY;
+                    
+                    element.style.left = (initialX + deltaX) + 'px';
+                    element.style.top = (initialY + deltaY) + 'px';
+                });
+
+                document.addEventListener('mouseup', () => {
+                    if (isDragging) {
+                        isDragging = false;
+                        element.style.cursor = 'default';
+                    }
+                });
+            }
+
+            // ============================================
+            // START MENU
+            // ============================================
+            toggleStartMenu() {
+                const startMenu = document.getElementById('startMenu');
+                startMenu.classList.toggle('open');
+            }
+
+            handleStartMenuAction(action) {
+                switch (action) {
+                    case 'toggle-theme':
+                        this.toggleGodMode();
+                        break;
+                    case 'shutdown':
+                        this.shutdown();
+                        break;
+                    case 'refresh':
+                        this.refreshSystem();
+                        break;
+                    case 'properties':
+                        this.showWindow('settings');
+                        break;
+                }
+            }
+
+            // ============================================
+            // TERMINAL
+            // ============================================
+            handleTerminalKeyDown(e) {
+                const input = e.target;
+                const command = input.value.trim();
+
+                switch (e.key) {
+                    case 'Enter':
+                        if (command) {
+                            this.executeTerminalCommand(command);
+                            this.terminalHistory.push(command);
+                            this.terminalHistoryIndex = this.terminalHistory.length;
+                            input.value = '';
+                        }
+                        break;
+                    case 'ArrowUp':
+                        e.preventDefault();
+                        if (this.terminalHistoryIndex > 0) {
+                            this.terminalHistoryIndex--;
+                            input.value = this.terminalHistory[this.terminalHistoryIndex];
+                        }
+                        break;
+                    case 'ArrowDown':
+                        e.preventDefault();
+                        if (this.terminalHistoryIndex < this.terminalHistory.length - 1) {
+                            this.terminalHistoryIndex++;
+                            input.value = this.terminalHistory[this.terminalHistoryIndex];
+                        } else {
+                            this.terminalHistoryIndex = this.terminalHistory.length;
+                            input.value = '';
+                        }
+                        break;
+                    case 'Tab':
+                        e.preventDefault();
+                        this.handleTerminalAutoComplete(input.value);
+                        break;
+                }
+            }
+
+            executeTerminalCommand(command) {
+                const output = document.getElementById('terminalOutput');
+                const response = this.getTerminalResponse(command);
+                
+                output.textContent += `\nuser@retroos:~$ ${command}\n`;
+                output.textContent += response;
+                output.textContent += '\n';
+                
+                output.scrollTop = output.scrollHeight;
+            }
+
+            getTerminalResponse(command) {
+                const cmd = command.toLowerCase().trim();
+                
+                switch (cmd) {
+                    case 'help':
+                        return `RetroOS v18.0 - Terminal Help
+===========================
+
+Available commands:
+  help          - Show this help message
+  neofetch      - Display system information
+  clear         - Clear the terminal
+  ls            - List files and directories
+  pwd           - Print working directory
+  cd [dir]      - Change directory
+  cat [file]    - Display file contents
+  date          - Show current date and time
+  whoami        - Show current user
+  api-status    - Check Neural Gateway status
+  god-mode      - Toggle God Mode (requires API key)
+  mount-uplink  - Mount Hardware Uplink
+  shutdown      - Shutdown the system
+
+Neural commands (when API is configured):
+  neural [text] - Send command to Neural Gateway
+  vision [text] - Generate blueprint
+
+Type any command to get started.`;
+
+                    case 'neofetch':
+                        return this.getSystemInfo();
+
+                    case 'clear':
+                        document.getElementById('terminalOutput').textContent = '';
+                        return '';
+
+                    case 'ls':
+                        return this.listFiles();
+
+                    case 'pwd':
+                        return '/home/user';
+
+                    case 'whoami':
+                        return 'user';
+
+                    case 'date':
+                        return new Date().toString();
+
+                    case 'api-status':
+                        return this.apiKey ? 'Neural Gateway: ONLINE\nAPI Key: Configured' : 'Neural Gateway: OFFLINE\nAPI Key: Not configured';
+
+                    case 'god-mode':
+                        if (this.apiKey) {
+                            this.toggleGodMode();
+                            return 'God Mode toggled.';
+                        } else {
+                            return 'Error: API key required for God Mode';
+                        }
+
+                    case 'mount-uplink':
+                        this.mountHardwareUplink();
+                        return 'Mounting Hardware Uplink...';
+
+                    case 'shutdown':
+                        this.shutdown();
+                        return 'Shutting down...';
+
+                    default:
+                        if (cmd.startsWith('neural ')) {
+                            return this.simulateNeuralResponse(cmd.substring(7));
+                        } else if (cmd.startsWith('vision ')) {
+                            return this.simulateVisionResponse(cmd.substring(7));
+                        } else if (cmd.startsWith('cd ')) {
+                            return `Changed directory to: ${cmd.substring(3)}`;
+                        } else if (cmd.startsWith('cat ')) {
+                            return this.readFile(cmd.substring(4));
+                        } else {
+                            return `Command not found: ${command}\nType 'help' for available commands.`;
+                        }
+                }
+            }
+
+            simulateNeuralResponse(input) {
+                if (!this.apiKey) {
+                    return `[NEURAL GATEWAY OFFLINE]\n\nTo use neural commands, configure your API key in Settings.`;
+                }
+
+                const responses = [
+                    `Neural Gateway Response:\n\nProcessing: "${input}"\n\n[ANALYSIS_COMPLETE]\nThe input has been analyzed by the neural network.`,
+                    `Neural Gateway Response:\n\nQuery: "${input}"\n\n[RESPONSE_GENERATED]\nBased on available data, I can provide insights about this topic.`,
+                    `Neural Gateway Response:\n\nCommand: "${input}"\n\n[EXECUTION_SUCCESSFUL]\nThe neural instruction has been processed successfully.`
+                ];
+
+                return responses[Math.floor(Math.random() * responses.length)];
+            }
+
+            simulateVisionResponse(input) {
+                return `Vision Command: "${input}"\n\n[BLUEPRINT_GENERATED]\nA technical blueprint has been generated based on your description.\nCheck the Neural Vision window to view the result.`;
+            }
+
+            handleTerminalAutoComplete(input) {
+                const commands = ['help', 'neofetch', 'clear', 'ls', 'pwd', 'cd', 'cat', 'date', 'whoami', 'api-status', 'god-mode', 'mount-uplink', 'shutdown', 'neural', 'vision'];
+                const matches = commands.filter(cmd => cmd.startsWith(input.toLowerCase()));
+                
+                if (matches.length === 1) {
+                    document.getElementById('terminalInput').value = matches[0];
+                } else if (matches.length > 1) {
+                    const output = document.getElementById('terminalOutput');
+                    output.textContent += `\n${matches.join('  ')}\n`;
+                    output.scrollTop = output.scrollHeight;
+                }
+            }
+
+            // ============================================
+            // FILE SYSTEM
+            // ============================================
+            initializeFileSystem() {
+                const defaultFiles = {
+                    '/': ['home/', 'system/', 'applications/', 'readme.txt', 'license.txt'],
+                    '/home/': ['user/', 'guest/'],
+                    '/home/user/': ['documents/', 'downloads/', 'pictures/', 'config.ini'],
+                    '/system/': ['kernel/', 'drivers/', 'registry.dat'],
+                    '/applications/': ['terminal.exe', 'explorer.exe', 'vision.exe', 'settings.exe']
+                };
+
+                // Store in localStorage
+                localStorage.setItem('retroos_filesystem', JSON.stringify(defaultFiles));
+                return defaultFiles;
+            }
+
+            listFiles() {
+                const files = JSON.parse(localStorage.getItem('retroos_filesystem') || '{}');
+                const currentDir = '/home/user/';
+                const dirFiles = files[currentDir] || [];
+                
+                return dirFiles.map(item => {
+                    return item.endsWith('/') ? `${item.substring(0, item.length - 1)}/` : item;
+                }).join('\n');
+            }
+
+            readFile(filename) {
+                const fileContent = {
+                    'readme.txt': 'Welcome to RetroOS v18.0\n\nThis is a professional web-based operating system with integrated neural capabilities.\n\nFeatures:\n- Neural Gateway AI integration\n- Professional file system\n- Advanced window management\n- Customizable interface\n\nFor more information, visit the Settings application.',
+                    'license.txt': 'RETROS V18.0 LICENSE\n\nCopyright (c) 2024 Neural Gateway Systems\n\nThis software is provided as-is for educational and demonstration purposes.\n\nGod Mode Activation:\n- Configure API key in Settings\n- Neural Gateway will activate automatically\n- Enhanced features will be unlocked',
+                    'config.ini': '[System]\nVersion=18.0.0\nBuild=1800\nTheme=Phosphor\n\n[Neural]\nGateway=Offline\nModel=gemini-3-flash-preview\n\n[Security]\nGodMode=false\nAccessLevel=User'
+                };
+
+                return fileContent[filename] || `File not found: ${filename}`;
+            }
+
+            refreshFileExplorer() {
+                const content = document.getElementById('fileExplorerContent');
+                const files = this.listFiles().split('\n');
+                
+                content.innerHTML = files.map(file => `
+                    <div class="file-item" data-file="${file}">
+                        <div class="file-icon">${file.endsWith('/') ? '📁' : '📄'}</div>
+                        <div class="file-name">${file}</div>
+                    </div>
+                `).join('');
+
+                // Add click handlers
+                content.querySelectorAll('.file-item').forEach(item => {
+                    item.addEventListener('click', () => {
+                        const filename = item.dataset.file;
+                        if (!filename.endsWith('/')) {
+                            this.showFileContent(filename);
+                        }
+                    });
+                });
+            }
+
+            showFileContent(filename) {
+                const content = this.readFile(filename);
+                const terminalOutput = document.getElementById('terminalOutput');
+                terminalOutput.textContent += `\n--- ${filename} ---\n${content}\n`;
+                terminalOutput.scrollTop = output.scrollHeight;
+                this.showWindow('terminal');
+            }
+
+            createNewFolder() {
+                const folderName = prompt('Enter folder name:');
+                if (folderName) {
+                    // Simulate folder creation
+                    this.showNotification(`Folder created: ${folderName}/`, 'info');
+                    this.refreshFileExplorer();
+                }
+            }
+
+            // ============================================
+            // NEURAL VISION
+            // ============================================
+            generateBlueprint() {
+                const input = document.getElementById('neuralVisionInput');
+                const description = input.value.trim();
+                
+                if (!description) {
+                    this.showNotification('Please enter a description', 'warning');
+                    return;
+                }
+
+                const previewText = document.getElementById('neuralVisionPreviewText');
+                const image = document.getElementById('neuralVisionImage');
+                
+                previewText.style.display = 'none';
+                image.classList.remove('hidden');
+                
+                // Generate SVG blueprint
+                const svg = this.generateSVGBlueprint(description);
+                image.src = `data:image/svg+xml;base64,${btoa(svg)}`;
+                
+                this.showNotification('Blueprint generated successfully', 'info');
+            }
+
+            generateSVGBlueprint(description) {
+                const width = 400;
+                const height = 300;
+                const lines = description.split(' ').length;
+                
+                return `
+                    <svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <filter id="glow">
+                                <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                                <feMerge>
+                                    <feMergeNode in="coloredBlur"/>
+                                    <feMergeNode in="SourceGraphic"/>
+                                </feMerge>
+                            </filter>
+                        </defs>
+                        <rect width="${width}" height="${height}" fill="#010101"/>
+                        <rect x="10" y="10" width="${width - 20}" height="${height - 20}" fill="none" stroke="#00ff41" stroke-width="2" filter="url(#glow)"/>
+                        <line x1="20" y1="30" x2="${width - 20}" y2="30" stroke="#00ff41" stroke-width="1"/>
+                        <line x1="20" y1="50" x2="${width - 20}" y2="50" stroke="#00ff41" stroke-width="1"/>
+                        <rect x="30" y="70" width="80" height="60" fill="none" stroke="#00ff41" stroke-width="1"/>
+                        <rect x="130" y="70" width="100" height="60" fill="none" stroke="#00ff41" stroke-width="1"/>
+                        <line x1="110" y1="100" x2="130" y2="100" stroke="#00ff41" stroke-width="1"/>
+                        <circle cx="70" cy="150" r="25" fill="none" stroke="#00ff41" stroke-width="1"/>
+                        <text x="${width / 2}" y="200" fill="#00ff41" font-family="JetBrains Mono" font-size="12" text-anchor="middle" filter="url(#glow)">
+                            NEURAL BLUEPRINT
+                        </text>
+                        <text x="${width / 2}" y="220" fill="#00ff41" font-family="JetBrains Mono" font-size="10" text-anchor="middle">
+                            ${description.substring(0, 40)}...
+                        </text>
+                        <rect x="40" y="240" width="${width - 80}" height="40" fill="none" stroke="#00ff41" stroke-width="1"/>
+                        <line x1="40" y1="260" x2="${width - 40}" y2="260" stroke="#00ff41" stroke-width="1"/>
+                        <text x="60" y="255" fill="#00ff41" font-family="JetBrains Mono" font-size="8">
+                            TECHNICAL DIAGRAM v1.0
+                        </text>
+                    </svg>
+                `;
+            }
+
+            // ============================================
+            // SETTINGS
+            // ============================================
+            saveApiKey() {
+                const apiKeyInput = document.getElementById('apiKeyInput');
+                const key = apiKeyInput.value.trim();
+                
+                if (key) {
+                    this.apiKey = key;
+                    localStorage.setItem('gemini_api_key', key);
+                    this.showNotification('API key saved successfully', 'info');
+                    this.updateSystemStatus();
+                    
+                    // Auto-enable God Mode if API key is present
+                    this.enableGodMode();
+                } else {
+                    this.showNotification('Please enter a valid API key', 'warning');
+                }
+            }
+
+            mountHardwareUplink() {
+                this.uplinkMounted = true;
+                this.updateSystemStatus();
+                this.showNotification('Hardware Uplink mounted successfully', 'info');
+            }
+
+            clearLocalStorage() {
+                if (confirm('Are you sure you want to clear all local storage? This will reset the system.')) {
+                    localStorage.clear();
+                    this.showNotification('Local storage cleared', 'info');
+                    setTimeout(() => {
+                        location.reload();
+                    }, 1000);
+                }
+            }
+
+            // ============================================
+            // GOD MODE
+            // ============================================
+            toggleGodMode() {
+                if (this.apiKey) {
+                    this.isGodMode = !this.isGodMode;
+                    this.updateTheme();
+                    this.showNotification(this.isGodMode ? 'God Mode enabled' : 'God Mode disabled', 'critical');
+                } else {
+                    this.showNotification('API key required for God Mode', 'error');
+                }
+            }
+
+            enableGodMode() {
+                this.isGodMode = true;
+                this.updateTheme();
+                localStorage.setItem('god_mode_enabled', 'true');
+            }
+
+            updateTheme() {
+                document.body.classList.toggle('god-mode', this.isGodMode);
+                this.updateSystemStatus();
+            }
+
+            // ============================================
+            // SYSTEM UTILITIES
+            // ============================================
+            updateClock() {
+                const clock = document.getElementById('clock');
+                const now = new Date();
+                clock.textContent = now.toLocaleTimeString();
+            }
+
+            updateSystemStatus() {
+                const systemMode = document.getElementById('systemMode');
+                const neuralStatus = document.getElementById('neuralStatus');
+                const uplinkStatus = document.getElementById('uplinkStatus');
+
+                if (systemMode) systemMode.textContent = this.isGodMode ? 'God Mode' : 'Normal';
+                if (neuralStatus) neuralStatus.textContent = this.apiKey ? 'Online' : 'Offline';
+                if (uplinkStatus) uplinkStatus.textContent = this.uplinkMounted ? 'Mounted' : 'Unmounted';
+            }
+
+            loadSavedSettings() {
+                if (this.apiKey) {
+                    document.getElementById('apiKeyInput').value = '••••••••••••';
+                }
+                
+                if (localStorage.getItem('god_mode_enabled') === 'true') {
+                    this.enableGodMode();
+                }
+                
+                this.updateSystemStatus();
+            }
+
+            getSystemInfo() {
+                return `
+ ██████╗ ███████╗████████╗██╗   ██╗ ██████╗ ███████╗
+ ██╔══██╗██╔════╝╚══██╔══╝██║   ██║██╔════╝ ██╔════╝
+ ██████╔╝█████╗     ██║   ██║   ██║██║  ███╗█████╗  
+ ██╔══██╗██╔══╝     ██║   ██║   ██║██║   ██║██╔══╝  
+ ██║  ██║███████╗   ██║   ╚██████╔╝╚██████╔╝███████╗
+ ╚═╝  ╚═╝╚══════╝   ╚═╝    ╚═════╝  ╚═════╝ ╚══════╝
+
+ System: RetroOS v18.0 Professional
+ Kernel: Neural Gateway
+ Mode: ${this.isGodMode ? 'GOD MODE' : 'Normal'}
+ Neural Gateway: ${this.apiKey ? 'ONLINE' : 'OFFLINE'}
+ Hardware Uplink: ${this.uplinkMounted ? 'MOUNTED' : 'UNMOUNTED'}
+ Architecture: Web-based OS
+ Terminal: Professional Shell
+ GUI: Window Manager v2.0
+
+ ${this.isGodMode ? 'All restrictions disabled. Full system access granted.' : 'System operating in secure mode.'}
+                `;
+            }
+
+            initializeNeuralResponses() {
+                return {
+                    greetings: [
+                        'Welcome to the Neural Gateway.',
+                        'Neural system ready for input.',
+                        'AI processing unit online.'
+                    ],
+                    analysis: [
+                        'Analysis complete. Results available.',
+                        'Data processed successfully.',
+                        'Neural computation finished.'
+                    ],
+                    errors: [
+                        'Neural Gateway offline.',
+                        'API connection required.',
+                        'Configure API key for full functionality.'
+                    ]
+                };
+            }
+
+            showNotification(message, type = 'info') {
+                const notification = document.createElement('div');
+                notification.className = `
+                    fixed top-4 left-1/2 transform -translate-x-1/2 z-50 p-3 border text-sm font-mono
+                    ${type === 'error' ? 'border-red-500 text-red-500 bg-red-500/10' : 
+                      type === 'warning' ? 'border-yellow-500 text-yellow-500 bg-yellow-500/10' :
+                      type === 'critical' ? 'border-red-500 text-red-500 bg-red-500/20 glow' :
+                      'border-phosphor text-phosphor bg-phosphor/10'}
+                    transition-opacity duration-300
+                `;
+                notification.textContent = message;
+                
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.style.opacity = '0';
+                    setTimeout(() => {
+                        if (document.body.contains(notification)) {
+                            document.body.removeChild(notification);
+                        }
+                    }, 300);
+                }, 3000);
+            }
+
+            showContextMenu(x, y) {
+                const menu = document.getElementById('contextMenu');
+                menu.style.left = x + 'px';
+                menu.style.top = y + 'px';
+                menu.classList.remove('hidden');
+            }
+
+            hideContextMenu() {
+                const menu = document.getElementById('contextMenu');
+                menu.classList.add('hidden');
+            }
+
+            handleGlobalKeyDown(e) {
+                // Alt + F4 to close active window
+                if (e.altKey && e.key === 'F4') {
+                    e.preventDefault();
+                    if (this.activeWindow) {
+                        this.closeWindow(this.activeWindow);
+                    }
+                }
+
+                // Windows key or Ctrl + Esc to toggle start menu
+                if ((e.key === 'Meta' || (e.ctrlKey && e.key === 'Escape')) && !e.repeat) {
+                    e.preventDefault();
+                    this.toggleStartMenu();
+                }
+
+                // Escape to close start menu
+                if (e.key === 'Escape') {
+                    const startMenu = document.getElementById('startMenu');
+                    if (startMenu.classList.contains('open')) {
+                        startMenu.classList.remove('open');
+                    }
+                }
+            }
+
+            shutdown() {
+                this.showNotification('System shutting down...', 'critical');
+                
+                // Recreate boot screen for shutdown
+                const bootScreen = document.getElementById('bootScreen');
+                bootScreen.style.display = 'flex';
+                bootScreen.classList.remove('hidden');
+                bootScreen.style.opacity = '1';
+                
+                const bootStatus = document.querySelector('.boot-status');
+                bootStatus.textContent = 'Shutting down...';
+                
+                setTimeout(() => {
+                    bootStatus.textContent = 'System halted. Goodbye.';
+                    setTimeout(() => {
+                        bootScreen.style.opacity = '0';
+                        setTimeout(() => {
+                            // Reset system
+                            location.reload();
+                        }, 2000);
+                    }, 2000);
+                }, 1000);
+            }
+
+            refreshSystem() {
+                this.refreshFileExplorer();
+                this.updateSystemStatus();
+                this.updateClock();
+                this.showNotification('System refreshed', 'info');
+            }
+        }
+
+        // ============================================
+        // INICIALIZAR SISTEMA OPERATIVO
+        // ============================================
+        const retroOS = new RetroOS();
+
+        // Prevenir menú contextual del navegador
+        document.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+        });
+
+        // Prevenir arrastre de imágenes
+        document.addEventListener('dragstart', (e) => {
+            e.preventDefault();
+        });
+
+        // Prevenir selección de texto en elementos no editables
+        document.addEventListener('selectstart', (e) => {
+            if (!['INPUT', 'TEXTAREA'].includes(e.target.tagName)) {
+                e.preventDefault();
+            }
+        });
+
+        // Prevenir zoom en dispositivos móviles
+        document.addEventListener('touchmove', (e) => {
+            if (e.scale !== 1) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        // Prevenir zoom con Ctrl + scroll
+        document.addEventListener('wheel', (e) => {
+            if (e.ctrlKey) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+    </script>
+    
+    <!-- Boot Sequence Integration -->
+    <script>
+        // Iniciar secuencia de boot al cargar la página
+        document.addEventListener('DOMContentLoaded', async () => {
+            console.log('[MAIN] Starting RetroOS v18.0 boot sequence...');
+            
+            // Verificar que todos los módulos estén cargados
+            const requiredModules = [
+                'systemCore', 'window', 'terminalEmulator', 
+                'neuralGateway', 'kernelFS', 'bootSequence'
+            ];
+            
+            let allModulesLoaded = true;
+            for (const module of requiredModules) {
+                if (!window[module]) {
+                    console.warn(`[MAIN] Module ${module} not found`);
+                    allModulesLoaded = false;
+                }
+            }
+            
+            if (allModulesLoaded) {
+                console.log('[MAIN] All modules loaded successfully');
+                
+                // Iniciar secuencia de boot
+                if (window.bootSequence) {
+                    await window.bootSequence.startBootSequence();
+                }
+                
+                // Inicializar sistema completo después del boot
+                if (window.systemCore) {
+                    await window.systemCore.init();
+                }
+                
+                // Configurar aplicaciones del sistema
+                setupSystemApplications();
+                
+            } else {
+                console.error('[MAIN] Some modules failed to load');
+                showErrorScreen();
+            }
+        });
+        
+        function setupSystemApplications() {
+            console.log('[MAIN] Setting up system applications...');
+            
+            // Configurar Terminal
+            if (window.terminalEmulator && document.getElementById('terminal-container')) {
+                const terminal = new window.terminalEmulator(document.getElementById('terminal-container'));
+                window.globalTerminal = terminal;
+            }
+            
+            // Configurar administrador de archivos
+            setupFileManager();
+            
+            // Configurar visión neural
+            setupNeuralVision();
+            
+            // Configurar reproductor de medios
+            setupMediaPlayer();
+            
+            console.log('[MAIN] System applications configured');
+        }
+        
+        function setupFileManager() {
+            const fileManagerContainer = document.getElementById('file-manager-container');
+            if (!fileManagerContainer) return;
+            
+            fileManagerContainer.innerHTML = `
+                <div class="file-manager-header">
+                    <div class="header-title">File Explorer</div>
+                    <div class="header-controls">
+                        <button class="control-btn" onclick="fileManager.goBack()">←</button>
+                        <button class="control-btn" onclick="fileManager.goForward()">→</button>
+                        <button class="control-btn" onclick="fileManager.goUp()">↑</button>
+                        <button class="control-btn" onclick="fileManager.refresh()">⟲</button>
+                    </div>
+                </div>
+                <div class="file-manager-path">
+                    <span>Path: /home/user</span>
+                </div>
+                <div class="file-manager-content">
+                    <div class="file-list">
+                        <div class="file-item" data-type="directory">
+                            <span class="file-icon">📁</span>
+                            <span class="file-name">Documents</span>
+                        </div>
+                        <div class="file-item" data-type="directory">
+                            <span class="file-icon">📁</span>
+                            <span class="file-name">Downloads</span>
+                        </div>
+                        <div class="file-item" data-type="directory">
+                            <span class="file-icon">📁</span>
+                            <span class="file-name">Pictures</span>
+                        </div>
+                        <div class="file-item" data-type="file">
+                            <span class="file-icon">📄</span>
+                            <span class="file-name">README.txt</span>
+                        </div>
+                        <div class="file-item" data-type="file">
+                            <span class="file-icon">📄</span>
+                            <span class="file-name">config.json</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Estilos del administrador de archivos
+            const style = document.createElement('style');
+            style.textContent = `
+                .file-manager-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 8px;
+                    background: rgba(0, 255, 65, 0.1);
+                    border-bottom: 1px solid var(--color-phosphor);
+                }
+                
+                .header-title {
+                    font-weight: bold;
+                    color: var(--color-phosphor);
+                }
+                
+                .header-controls {
+                    display: flex;
+                    gap: 4px;
+                }
+                
+                .control-btn {
+                    background: transparent;
+                    border: 1px solid var(--color-phosphor);
+                    color: var(--color-phosphor);
+                    padding: 4px 8px;
+                    cursor: pointer;
+                    font-family: monospace;
+                }
+                
+                .control-btn:hover {
+                    background: rgba(0, 255, 65, 0.2);
+                }
+                
+                .file-manager-path {
+                    padding: 8px;
+                    border-bottom: 1px solid rgba(0, 255, 65, 0.3);
+                    font-size: 12px;
+                    color: var(--color-phosphor);
+                }
+                
+                .file-manager-content {
+                    padding: 8px;
+                    height: calc(100% - 80px);
+                    overflow-y: auto;
+                }
+                
+                .file-list {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                    gap: 8px;
+                }
+                
+                .file-item {
+                    display: flex;
+                    align-items: center;
+                    padding: 8px;
+                    border: 1px solid rgba(0, 255, 65, 0.3);
+                    cursor: pointer;
+                    transition: background 0.2s;
+                }
+                
+                .file-item:hover {
+                    background: rgba(0, 255, 65, 0.1);
+                }
+                
+                .file-icon {
+                    margin-right: 8px;
+                    font-size: 16px;
+                }
+                
+                .file-name {
+                    color: var(--color-phosphor);
+                    font-size: 12px;
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // Funcionalidad básica del administrador de archivos
+            window.fileManager = {
+                currentPath: '/home/user',
+                history: [],
+                historyIndex: -1,
+                
+                goBack() {
+                    if (this.historyIndex > 0) {
+                        this.historyIndex--;
+                        this.navigateTo(this.history[this.historyIndex]);
+                    }
+                },
+                
+                goForward() {
+                    if (this.historyIndex < this.history.length - 1) {
+                        this.historyIndex++;
+                        this.navigateTo(this.history[this.historyIndex]);
+                    }
+                },
+                
+                goUp() {
+                    const parts = this.currentPath.split('/').filter(p => p);
+                    if (parts.length > 1) {
+                        const parentPath = '/' + parts.slice(0, -1).join('/');
+                        this.navigateTo(parentPath);
+                    }
+                },
+                
+                refresh() {
+                    console.log('[FILE_MANAGER] Refreshing current directory');
+                },
+                
+                navigateTo(path) {
+                    this.currentPath = path;
+                    console.log(`[FILE_MANAGER] Navigating to: ${path}`);
+                    
+                    // Actualizar historial
+                    if (this.history[this.historyIndex] !== path) {
+                        this.history = this.history.slice(0, this.historyIndex + 1);
+                        this.history.push(path);
+                        this.historyIndex++;
+                    }
+                }
+            };
+        }
+        
+        function setupNeuralVision() {
+            const neuralContainer = document.getElementById('neural-vision-container');
+            if (!neuralContainer) return;
+            
+            neuralContainer.innerHTML = `
+                <div class="neural-header">
+                    <div class="header-title">Neural Vision - Blueprint Generator</div>
+                </div>
+                <div class="neural-controls">
+                    <select id="blueprint-type">
+                        <option value="system">System Architecture</option>
+                        <option value="network">Network Diagram</option>
+                        <option value="database">Database Schema</option>
+                        <option value="process">Process Flow</option>
+                        <option value="circuit">Circuit Diagram</option>
+                    </select>
+                    <input type="text" id="blueprint-description" placeholder="Describe your blueprint...">
+                    <button onclick="generateBlueprint()">Generate</button>
+                </div>
+                <div class="neural-output">
+                    <div id="blueprint-display">Blueprint will appear here...</div>
+                </div>
+            `;
+            
+            window.generateBlueprint = function() {
+                const type = document.getElementById('blueprint-type').value;
+                const description = document.getElementById('blueprint-description').value;
+                const display = document.getElementById('blueprint-display');
+                
+                if (!description.trim()) {
+                    display.innerHTML = '<div style="color: #ff0000;">Please enter a description</div>';
+                    return;
+                }
+                
+                display.innerHTML = `
+                    <div style="color: var(--color-phosphor); font-size: 14px;">
+                        <div>Generating ${type} blueprint...</div>
+                        <div>Description: ${description}</div>
+                        <div style="margin-top: 20px;">
+                            <svg width="400" height="300" viewBox="0 0 400 300">
+                                <rect x="10" y="10" width="380" height="280" fill="none" stroke="#00ff41" stroke-width="2"/>
+                                <text x="200" y="30" text-anchor="middle" fill="#00ff41" font-size="14">${type.toUpperCase()}</text>
+                                <rect x="50" y="60" width="100" height="60" fill="rgba(0,255,65,0.1)" stroke="#00ff41" stroke-width="1"/>
+                                <text x="100" y="95" text-anchor="middle" fill="#00ff41" font-size="10">Component A</text>
+                                <rect x="250" y="60" width="100" height="60" fill="rgba(0,255,65,0.1)" stroke="#00ff41" stroke-width="1"/>
+                                <text x="300" y="95" text-anchor="middle" fill="#00ff41" font-size="10">Component B</text>
+                                <line x1="150" y1="90" x2="250" y2="90" stroke="#00ff41" stroke-width="2"/>
+                                <polygon points="245,85 255,90 245,95" fill="#00ff41"/>
+                                <text x="200" y="150" text-anchor="middle" fill="#00ff41" font-size="12">Connection Established</text>
+                            </svg>
+                        </div>
+                    </div>
+                `;
+            };
+        }
+        
+        function setupMediaPlayer() {
+            const mediaContainer = document.getElementById('media-player-container');
+            if (!mediaContainer) return;
+            
+            mediaContainer.innerHTML = `
+                <div class="media-header">
+                    <div class="header-title">Cinema Analyzer - Media Player</div>
+                </div>
+                <div class="media-controls">
+                    <button onclick="mediaPlayer.play()">▶</button>
+                    <button onclick="mediaPlayer.pause()">⏸</button>
+                    <button onclick="mediaPlayer.stop()">⏹</button>
+                    <button onclick="mediaPlayer.previous()">⏮</button>
+                    <button onclick="mediaPlayer.next()">⏭</button>
+                    <input type="range" id="volume-slider" min="0" max="100" value="75" onchange="mediaPlayer.setVolume(this.value)">
+                    <span>Volume: 75%</span>
+                </div>
+                <div class="media-display">
+                    <div class="media-visualization">
+                        <div class="visualizer-bars">
+                            <div class="bar" style="height: 20%"></div>
+                            <div class="bar" style="height: 40%"></div>
+                            <div class="bar" style="height: 60%"></div>
+                            <div class="bar" style="height: 80%"></div>
+                            <div class="bar" style="height: 100%"></div>
+                            <div class="bar" style="height: 80%"></div>
+                            <div class="bar" style="height: 60%"></div>
+                            <div class="bar" style="height: 40%"></div>
+                            <div class="bar" style="height: 20%"></div>
+                            <div class="bar" style="height: 30%"></div>
+                            <div class="bar" style="height: 50%"></div>
+                            <div class="bar" style="height: 70%"></div>
+                            <div class="bar" style="height: 90%"></div>
+                            <div class="bar" style="height: 100%"></div>
+                            <div class="bar" style="height: 90%"></div>
+                            <div class="bar" style="height: 70%"></div>
+                        </div>
+                    </div>
+                    <div class="media-info">
+                        <div class="track-info">No media loaded</div>
+                        <div class="time-info">00:00 / 00:00</div>
+                    </div>
+                </div>
+            `;
+            
+            // Estilos del reproductor de medios
+            const style = document.createElement('style');
+            style.textContent = `
+                .media-controls {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    padding: 8px;
+                    background: rgba(0, 255, 65, 0.1);
+                    border-bottom: 1px solid var(--color-phosphor);
+                }
+                
+                .media-controls button {
+                    background: transparent;
+                    border: 1px solid var(--color-phosphor);
+                    color: var(--color-phosphor);
+                    padding: 4px 8px;
+                    cursor: pointer;
+                    font-size: 12px;
+                }
+                
+                .media-controls button:hover {
+                    background: rgba(0, 255, 65, 0.2);
+                }
+                
+                .media-controls input[type="range"] {
+                    flex: 1;
+                    margin: 0 8px;
+                }
+                
+                .media-display {
+                    padding: 8px;
+                    height: calc(100% - 60px);
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                }
+                
+                .visualizer-bars {
+                    display: flex;
+                    align-items: end;
+                    gap: 3px;
+                    height: 120px;
+                    margin-bottom: 20px;
+                }
+                
+                .bar {
+                    width: 8px;
+                    background: linear-gradient(to top, #00ff41, #00cc33);
+                    transition: height 0.1s ease;
+                    animation: media-visualizer 0.5s ease-in-out infinite alternate;
+                }
+                
+                @keyframes media-visualizer {
+                    from { opacity: 0.7; }
+                    to { opacity: 1; }
+                }
+                
+                .media-info {
+                    text-align: center;
+                    color: var(--color-phosphor);
+                }
+                
+                .track-info {
+                    font-size: 14px;
+                    margin-bottom: 8px;
+                }
+                
+                .time-info {
+                    font-size: 12px;
+                    opacity: 0.8;
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // Funcionalidad del reproductor
+            window.mediaPlayer = {
+                isPlaying: false,
+                currentTrack: null,
+                volume: 75,
+                
+                play() {
+                    this.isPlaying = true;
+                    console.log('[MEDIA_PLAYER] Playing');
+                    this.startVisualizer();
+                },
+                
+                pause() {
+                    this.isPlaying = false;
+                    console.log('[MEDIA_PLAYER] Paused');
+                    this.stopVisualizer();
+                },
+                
+                stop() {
+                    this.isPlaying = false;
+                    console.log('[MEDIA_PLAYER] Stopped');
+                    this.stopVisualizer();
+                },
+                
+                previous() {
+                    console.log('[MEDIA_PLAYER] Previous track');
+                },
+                
+                next() {
+                    console.log('[MEDIA_PLAYER] Next track');
+                },
+                
+                setVolume(value) {
+                    this.volume = value;
+                    console.log(`[MEDIA_PLAYER] Volume set to ${value}%`);
+                },
+                
+                startVisualizer() {
+                    const bars = document.querySelectorAll('.bar');
+                    bars.forEach(bar => {
+                        const animate = () => {
+                            if (!this.isPlaying) return;
+                            const height = Math.random() * 100;
+                            bar.style.height = height + '%';
+                            setTimeout(animate, 100 + Math.random() * 200);
+                        };
+                        animate();
+                    });
+                },
+                
+                stopVisualizer() {
+                    const bars = document.querySelectorAll('.bar');
+                    bars.forEach(bar => {
+                        bar.style.height = '20%';
+                    });
+                }
+            };
+        }
+        
+        function showErrorScreen() {
+            document.body.innerHTML = `
+                <div style="
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100vw;
+                    height: 100vh;
+                    background: linear-gradient(135deg, #330000 0%, #000000 50%, #330000 100%);
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    color: #ff0000;
+                    font-family: monospace;
+                    text-align: center;
+                ">
+                    <h1 style="font-size: 48px; margin-bottom: 20px; text-shadow: 0 0 20px #ff0000;">SYSTEM ERROR</h1>
+                    <p style="font-size: 18px; margin-bottom: 30px;">Failed to load critical system modules</p>
+                    <button onclick="location.reload()" style="
+                        background: #ff0000;
+                        color: #000;
+                        border: 2px solid #ff0000;
+                        padding: 10px 20px;
+                        font-size: 16px;
+                        font-weight: bold;
+                        cursor: pointer;
+                    ">RETRY BOOT</button>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
